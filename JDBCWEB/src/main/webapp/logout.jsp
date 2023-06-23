@@ -11,7 +11,7 @@
 	session.invalidate();
 	out.println("세션이 모두 삭제됐습니다.");
 
-	response.sendRedirect("login.html");
+	response.sendRedirect("login.jsp");
 	%>
 </body>
 </html>
