@@ -5,6 +5,8 @@
 <%@ page import="java.sql.SQLException"%>
 <%@ page import="java.sql.Statement"%>
 <%@ page import="java.sql.ResultSet"%>
+<%@ page import="com.jsplec.MemberDAO"%>
+<%@ page import="com.jsplec.MemberDTO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,58 +16,21 @@
 <body>
 	<h1>회원 정보 수정</h1>
 	<%
-	String pw = "", name = "", phone1 = "", phone2 = "", phone3 = "", gender = "";
-	Connection connection = null;
-	Statement statement = null;
-	ResultSet resultSet = null;
+	// 세션에 저장된 id 값 가져오기
+	String id = session.getAttribute("id").toString();
 
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@192.168.119.119:1521/dink21.dbsvr";
-	String uid = "scott";
-	String upw = "tiger";
-	String query = "SELECT * FROM member2 where id = '" + session.getAttribute("id") + "'";
+	MemberDAO dao = new MemberDAO();
+	// id로 현재 로그인 된 멤버의 정보(dto 객체로) 가져오기
+	MemberDTO dto = dao.selectMember(id);
 
-	try {
-	    Class.forName(driver);
-	    connection = DriverManager.getConnection(url, uid, upw);
-	    statement = connection.createStatement();
-	    resultSet = statement.executeQuery(query);
-
-	    while (resultSet.next()) {
-	        pw = resultSet.getString("pw");
-	        name = resultSet.getString("name");
-	        phone1 = resultSet.getString("phone1");
-	        phone2 = resultSet.getString("phone2");
-	        phone3 = resultSet.getString("phone3");
-	        gender = resultSet.getString("gender");
-	    }
-	} catch (SQLException | ClassNotFoundException e) {
-	    e.printStackTrace();
-	} finally {
-	    // Close resources in the finally block
-	    if (resultSet != null) {
-	        try {
-	    resultSet.close();
-	        } catch (SQLException e) {
-	    e.printStackTrace();
-	        }
-	    }
-	    if (statement != null) {
-	        try {
-	    statement.close();
-	        } catch (SQLException e) {
-	    e.printStackTrace();
-	        }
-	    }
-	    if (connection != null) {
-	        try {
-	    connection.close();
-	        } catch (SQLException e) {
-	    e.printStackTrace();
-	        }
-	    }
-	}
+	String pw = dto.getPw();
+	String name = dto.getName();
+	String phone1 = dto.getPhone1();
+	String phone2 = dto.getPhone2();
+	String phone3 = dto.getPhone3();
+	String gender = dto.getGender();
 	%>
+
 	<form action="ModifyOk" method="post">
 		비밀번호 : <input type="password" name="pw" value=<%=pw%>> <br />
 		이름: <input type="text" name="name" value=<%=name%>> <br />
