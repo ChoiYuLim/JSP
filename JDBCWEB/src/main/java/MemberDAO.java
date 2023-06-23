@@ -6,7 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class MemberDAO {
-	private String url = "jdbc:oracle:thin:@tlf.co.kr:1521:orcl";
+	private String url = "jdbc:oracle:thin:@192.168.119.119:1521/dink21.dbsvr";
 	private String uid = "kopo";
 	private String upw = "kopo";
 	
