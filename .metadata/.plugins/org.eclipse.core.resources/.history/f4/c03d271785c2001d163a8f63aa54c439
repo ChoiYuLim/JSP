@@ -1,0 +1,14 @@
+package com.yulim;
+
+public class Wizard {
+	private int hp;
+	private int mp;
+	private String name;
+	private Wand wand;
+
+	public void heal(Hero hero) {
+		int basePoint = 10;
+		int recovPoint = (int) (basePoint * wand.getPower());
+		hero.setHp(hero.getHp() + recovPoint);
+	}
+}

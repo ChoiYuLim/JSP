@@ -1,0 +1,19 @@
+package com.yulim.day_0323.finalProject;
+
+import java.util.ArrayList;
+
+public class MemberManager {
+
+    ArrayList<Member> list;
+    
+    public void readAll() {
+        
+    }
+
+    public ArrayList<Member> getList() {
+        return list;
+    }
+    
+    
+    
+}

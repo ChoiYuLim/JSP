@@ -1,0 +1,8 @@
+package kr.co.jsplec.ex;
+
+public class User {
+    private String id;
+    private int age;
+    private int grade;
+    private int studentNum;
+}

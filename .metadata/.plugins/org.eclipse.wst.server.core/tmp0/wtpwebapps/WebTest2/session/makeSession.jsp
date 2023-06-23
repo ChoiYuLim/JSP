@@ -1,0 +1,30 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<%-- 첫 번째 세션 생성 및 속성 설정 --%>
+	<%
+	session.setMaxInactiveInterval(60 * 60);
+	session.setAttribute("memberId", "yulim98");
+	%>
+
+	<%-- 두 번째 세션 생성 및 속성 설정 --%>
+	<%
+	session.setAttribute("memberPwd", "12345");
+	%>
+	
+	<%-- 두 번째 세션 생성 및 속성 설정 --%>
+	<%
+	session.setAttribute("memberName", "최유림");
+	%>
+
+	<a href="sessionInfo.jsp">세션 정보 보기</a>
+	
+
+</body>
+</html>

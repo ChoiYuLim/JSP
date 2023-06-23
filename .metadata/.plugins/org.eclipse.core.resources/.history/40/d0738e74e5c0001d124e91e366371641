@@ -1,0 +1,50 @@
+package com.yulim;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Example1_1 {
+  public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("단어을 입력하세요: ");
+    String input1 = scanner.next();
+    System.out.println("단어 " + input1 + "임");
+
+    // 버퍼를 비워줌
+    //scanner.next();
+
+    //System.out.println("두 번째 문자열을 입력하세요: ");
+    //String input2 = scanner.next();
+    //System.out.println("단어 " + input2 + "임");
+    //System.out.println("입력한 문자열: " + input1 + ", " + input2);
+  
+    System.out.println("두 번째 문자열을 입력하세요: ");
+    String input3 = scanner.nextLine();
+    System.out.println("단어 " + input3 + "임");
+    
+    int[] a = {4, 2, 6};
+    int[] b = a;
+    Arrays.sort(a);
+    // a: {2, 4, 6}
+//    // b: {2, 4, 6}
+//    for(int i: a) {
+//    	System.out.println(i);
+//    }
+//    for(int i: b) {
+//    	System.out.println(i);
+//    }
+
+    int[] a1 = {4, 2, 6};
+    int[] b1 = Arrays.copyOf(a1, a.length);
+    Arrays.sort(a);
+    // a: {2, 4, 6}
+    // b: {4, 2, 6}
+    for(int i: a1) {
+    	System.out.println(i);
+    }
+    for(int i: b1) {
+    	System.out.println(i);
+    }
+  }
+}

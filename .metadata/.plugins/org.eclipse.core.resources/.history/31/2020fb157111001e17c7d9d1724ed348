@@ -1,0 +1,4 @@
+
+public class MemberDAO {
+    private String url = "jdbc"
+}

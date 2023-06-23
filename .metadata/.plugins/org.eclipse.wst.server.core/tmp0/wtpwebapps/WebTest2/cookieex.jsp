@@ -1,0 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+		Cookie cookie = new Cookie("cookieN","cookieV");
+		//유효기간을 설정 
+		cookie.setMaxAge(60*60);
+		response.addCookie(cookie);
+	%>
+	<a href="cookieget.jsp">cookie get</a>
+	
+	<a href="cookiedel.jsp">cookie del</a>
+</body>
+</html>

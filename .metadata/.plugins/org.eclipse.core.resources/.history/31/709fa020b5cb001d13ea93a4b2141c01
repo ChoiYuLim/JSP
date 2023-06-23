@@ -1,0 +1,39 @@
+package com.yulim.day_0323.finalProject;
+
+import java.util.ArrayList;
+
+public class MemberManager implements CRUD<Object> {
+
+    ArrayList<Member> list;
+
+    public ArrayList<Member> getList() {
+        return list;
+    }
+
+    @Override
+    public void create() {
+        // TODO Auto-generated method stub
+
+    }
+
+    // id순으로 전체 조회
+    @Override
+    public void read() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void update() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void delete() {
+        // TODO Auto-generated method stub
+
+    }
+
+
+}

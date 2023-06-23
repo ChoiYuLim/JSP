@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<%@ page import="java.util.Enumeration"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<%-- <%
+	session.removeAttribute("memberId");
+	session.setMaxInactiveInterval(0);
+	out.println("세션이 삭제됐습니다.");
+	%> --%>
+
+	<%
+	session.removeAttribute("memberId");
+
+	Enumeration<String> enum1 = session.getAttributeNames();
+	
+
+	session.invalidate();
+	out.println("세션이 모두 삭제됐습니다.");
+	%>
+
+</body>
+</html>

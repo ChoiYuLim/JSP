@@ -1,0 +1,21 @@
+package com.yulim;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Person hong = new Person("홍길동");
+		Person han = new Person("한석봉");
+
+		List<Person> arrList = new ArrayList<>();
+		arrList.add(hong);
+		arrList.add(han);
+
+		for (Person person : arrList) {
+			System.out.println(person.name);
+		}
+
+	}
+}

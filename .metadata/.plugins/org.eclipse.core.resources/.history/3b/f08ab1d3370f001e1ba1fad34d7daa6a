@@ -1,0 +1,43 @@
+package com.day2;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+
+public class ContextListener implements ServletContextListener {
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        ServletContextListener.super.contextDestroyed(sce);
+        System.out.println("contextInitialized");
+    }
+
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        ServletContextListener.super.contextInitialized(sce);
+        System.out.println("contextDestroyed");
+    }
+
+
+
+    private void init() {
+        // TODO Auto-generated method stub
+        System.out.println();
+    }
+
+    private void destroy() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @PostConstruct
+    private void postConstruct() {
+
+    }
+
+    @PreDestroy
+    private void preDestroy() {
+
+    }
+}

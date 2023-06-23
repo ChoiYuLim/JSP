@@ -1,0 +1,21 @@
+package com.yulim;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Person hong = new Person("홍길동", 20);
+		Person han = new Person("한석봉", 25);
+
+		Map<String, Integer> map = new HashMap<>();
+		map.put(hong.name, hong.age);
+		map.put(han.name, han.age);
+
+		for (String key : map.keySet()) {
+			System.out.println(key + "의 나이는 " + map.get(key) + "살");
+		}
+
+	}
+}

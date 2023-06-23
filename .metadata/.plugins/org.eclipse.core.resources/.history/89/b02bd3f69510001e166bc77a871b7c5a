@@ -1,0 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+	session.setAttribute("memberId", "admin");
+	session.setMaxInactiveInterval(60);
+	%>
+
+	<a href="sessionInfo.jsp">세션 정보 보기</a>
+	<a href="deleteSession.jsp">세션 삭제하기</a>
+	
+	
+	
+	
+    
+    <%-- 세션 속성 출력 --%>
+    <% Enumeration<String> attributeNames = session1.getAttributeNames(); %>
+    <h3>Session Attributes:</h3>
+    <ul>
+        <% while (attributeNames.hasMoreElements()) { %>
+            <% String attributeName = attributeNames.nextElement(); %>
+            <li><%= attributeName %>: <%= session1.getAttribute(attributeName) %></li>
+        <% } %>
+    </ul>
+    <a href="sessiondel.jsp">session del</a>
+	
+</body>
+</html>

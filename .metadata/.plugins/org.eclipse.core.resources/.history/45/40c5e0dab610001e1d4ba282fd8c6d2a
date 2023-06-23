@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>ttttt
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+	public class Student {
+	    private String name;
+	    private int age;
+	    private int grade;
+	    private int studentNum;
+	}
+	%>
+</body>
+</html>

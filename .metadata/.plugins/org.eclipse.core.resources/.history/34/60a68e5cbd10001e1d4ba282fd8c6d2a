@@ -1,0 +1,30 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<jsp:useBean id="user" class="kr.co.jsplec.ex.User" scope="page" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<%!String id;
+    String pwd;
+    String name;
+    String email;%>
+
+	<%
+	id = request.getParameter("id");
+	pwd = request.getParameter("pwd");
+	name = request.getParameter("name");
+	email = request.getParameter("email");
+	%>
+
+	<jsp:setProperty name="user" property="id" value=<%=id%> />
+	<jsp:setProperty name="user" property="pwd" value=<%=pwd%> />
+	<jsp:setProperty name="user" property="name" value=<%=name%> />
+	<jsp:setProperty name="user" property="email" value=<%=email%> />
+	
+	<a href = "memberConfirm.jsp">ㅎ</a>
+</body>
+</html>

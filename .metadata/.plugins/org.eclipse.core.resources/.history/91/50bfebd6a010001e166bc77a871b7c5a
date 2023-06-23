@@ -1,0 +1,57 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<%@ page import="java.util.Enumeration"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<%-- 세션 속성 출력 --%>
+	<%
+	Object obj1 = session.getAttribute("memberId");
+	String id = (String) obj1;
+	out.println("mySessionName: " + id + "<br/>");
+
+
+	Object obj2 = session.getAttribute("memberPwd");
+	String pwd = (String) obj2;
+	out.println("mySessionName: " + pwd + "<br/>");
+
+	Object obj3 = session.getAttribute("memberName");
+	String name = (String) obj3;
+	out.println("mySessionName: " + name + "<br/>");
+
+	
+	out.println("========================================<br/>");
+	
+	simpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+	
+	long createionTime = session.getCreateionTime();
+	String createTimeStr = dateFormat.format(new Date(createionTime));
+	
+	long lastTime = session.getLastAccressedTime();
+	String lastTimeStr = dateFormat.format(new Date(lastTime));
+	
+	out.println("세션 유지 시간: " + session.getMaxInactiveIntervl() + "<br/>");
+	out.println("mySessionName: " + name + "<br/>");
+	out.println("mySessionName: " + name + "<br/>");
+	out.println("mySessionName: " + name + "<br/>");
+	
+	
+	//Enumeration<String> attributeNames = session.getAttributeNames();
+	%>
+	<%-- <h3>Session Attributes:</h3>
+	<ul>
+		<%
+		while (attributeNames.hasMoreElements()) {
+		    String attributeName = attributeNames.nextElement();
+		%>
+		<li><%=attributeName%>: <%=session.getAttribute(attributeName)%></li>
+		<%
+		}
+		%>
+	</ul> --%>
+</body>
+</html>

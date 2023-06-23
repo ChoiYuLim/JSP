@@ -1,0 +1,8 @@
+package kr.co.jsplec.ex;
+
+public class User {
+    private String id;
+    private String pwd;
+    private String name;
+    private String email;
+}

@@ -1,0 +1,21 @@
+package com.yulim.day_0323.finalProject;
+
+import java.util.ArrayList;
+
+public class MemberManager {
+
+    ArrayList<Member> list;
+    
+    // id순으로 전체 조회
+    public void readAll() {
+        
+    }
+
+    public ArrayList<Member> getList() {
+        return list;
+    }
+    
+    public void create
+    
+    
+}

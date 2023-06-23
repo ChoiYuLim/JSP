@@ -1,0 +1,79 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>회원 정보 수정</h1>
+	<%
+	String pw, name, phone1, phone2, phone3, gender;
+	Connection connection = null;
+	Statement statement = null;
+	ResultSet resultSet = null;
+
+	String driver = "oracle.jdbc.driver.OracleDriver";
+	String url = "jdbc:oracle:thin:@192.168.119.119:1521/dink21.dbsvr";
+	String uid = "scott";
+	String upw = "tiger";
+	String query = "SELECT * FROM member2 where id = '" + session.getAttribute("id") + "'";
+
+	try {
+	    Class.forName(driver);
+	    connection = DriverManager.getConnection(url, uid, upw);
+	    statement = connection.createStatement();
+	    resultSet = statement.executeQuery(query);
+
+	    while (resultSet.next()) {
+	        pw = resultSet.getString("pw");
+	        name = resultSet.getString("name");
+	        phone1 = resultSet.getString("phone1");
+	        phone2 = resultSet.getString("phone2");
+	        phone3 = resultSet.getString("phone3");
+	        gender = resultSet.getString("gender");
+	    }
+	} catch (SQLException | ClassNotFoundException e) {
+	    e.printStackTrace();
+	} finally {
+	    // Close resources in the finally block
+	    if (resultSet != null) {
+	        try {
+	    resultSet.close();
+	        } catch (SQLException e) {
+	    e.printStackTrace();
+	        }
+	    }
+	    if (statement != null) {
+	        try {
+	    statement.close();
+	        } catch (SQLException e) {
+	    e.printStackTrace();
+	        }
+	    }
+	    if (connection != null) {
+	        try {
+	    connection.close();
+	        } catch (SQLException e) {
+	    e.printStackTrace();
+	        }
+	    }
+	}
+	%>
+	<form action="ModifyOk" method="post">
+		비밀번호 : <input type="password" name="pw" placeholder=pw> <br />
+		이름: <input type="text" name="name" placeholder=name> <br />
+		전화번호 1 : <input type="text" name="phone1"
+			placeholder="<%=session.getAttribute("phone1")%>"> <br />
+		전화번호 2 : <input type="text" name="phone2"
+			placeholder="<%=session.getAttribute("phone2")%>"> <br />
+		전화번호 3 : <input type="text" name="phone3"
+			placeholder="<%=session.getAttribute("phone3")%>"> <br /> 성별
+		: <input type="text" name="gender"
+			placeholder="<%=session.getAttribute("gender")%>"> <br /> <input
+			type="submit" value="전송">
+	</form>
+
+</body>
+</html>
