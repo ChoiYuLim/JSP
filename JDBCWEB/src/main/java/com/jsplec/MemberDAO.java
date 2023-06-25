@@ -3,7 +3,6 @@ package com.jsplec;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -15,7 +14,7 @@ public class MemberDAO {
     private DataSource ds;
 
     Connection conn = null;
-    Statement stmt = null;
+    PreparedStatement pstmt = null;
     ResultSet rs = null;
     String name = null, id = null, pw = null, phone1 = null, phone2 = null, phone3 = null,
             gender = null;
@@ -62,7 +61,7 @@ public class MemberDAO {
             // conn = DriverManager.getConnection(url, uid, upw);
             conn = ds.getConnection();
 
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM member2 WHERE id = ?");
+            pstmt = conn.prepareStatement("SELECT * FROM member2 WHERE id = ?");
             pstmt.setString(1, id);
             rs = pstmt.executeQuery();
 
@@ -82,8 +81,8 @@ public class MemberDAO {
             try {
                 if (rs != null)
                     rs.close();
-                if (stmt != null)
-                    stmt.close();
+                if (pstmt != null)
+                    pstmt.close();
                 if (conn != null)
                     conn.close();
             } catch (Exception e) {
@@ -99,7 +98,7 @@ public class MemberDAO {
             // conn = DriverManager.getConnection(url, uid, upw);
             conn = ds.getConnection();
 
-            PreparedStatement pstmt = conn.prepareStatement(
+            pstmt = conn.prepareStatement(
                     "UPDATE member2 SET name = ?, pw = ?, phone1 = ?, phone2 = ?, phone3 = ?, gender = ? WHERE id = ?");
             pstmt.setString(1, dto.getName());
             pstmt.setString(2, dto.getPw());
@@ -115,8 +114,8 @@ public class MemberDAO {
 
         } finally {
             try {
-                if (stmt != null)
-                    stmt.close();
+                if (pstmt != null)
+                    pstmt.close();
                 if (conn != null)
                     conn.close();
             } catch (Exception e) {
@@ -132,8 +131,7 @@ public class MemberDAO {
             // conn = DriverManager.getConnection(url, uid, upw);
             conn = ds.getConnection();
 
-            PreparedStatement pstmt =
-                    conn.prepareStatement("INSERT INTO member2 VALUES (?, ?, ?, ?, ?, ?, ?)");
+            pstmt = conn.prepareStatement("INSERT INTO member2 VALUES (?, ?, ?, ?, ?, ?, ?)");
             pstmt.setString(1, dto.getId());
             pstmt.setString(2, dto.getName());
             pstmt.setString(3, dto.getPw());
@@ -148,8 +146,8 @@ public class MemberDAO {
 
         } finally {
             try {
-                if (stmt != null)
-                    stmt.close();
+                if (pstmt != null)
+                    pstmt.close();
                 if (conn != null)
                     conn.close();
             } catch (Exception e) {
