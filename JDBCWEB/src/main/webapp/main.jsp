@@ -1,16 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="com.jsplec.MemberDAO"%>
+<%@ page import="com.jsplec.MemberDTO"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+	<%
+	MemberDAO dao = new MemberDAO();
+	String name = dao.selectMember((String) session.getAttribute("id")).getName();
+	%>
 
-	<a href="modify.jsp">Á¤º¸¼öÁ¤</a>
+	<%=name%>ë‹˜ ë°˜ê°‘ìŠµë‹ˆë‹¤!
 	<br />
-	<a href="logout.jsp">·Î±×¾Æ¿ô</a>
-
+	<br />
+	<a href="modify.jsp">ì •ë³´ìˆ˜ì •</a>
+	<br />
+	<a href="logout.jsp">ë¡œê·¸ì•„ì›ƒ</a>
 </body>
 </html>
