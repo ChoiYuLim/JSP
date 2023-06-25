@@ -1,15 +1,18 @@
 package com.jsplec;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 public class MemberDAO {
-    private String url = "jdbc:oracle:thin:@192.168.119.119:1521/dink21.dbsvr";
-    private String uid = "scott";
-    private String upw = "tiger";
+    // private String url = "jdbc:oracle:thin:@192.168.119.119:1521/dink21.dbsvr";
+    // private String uid = "scott";
+    // private String upw = "tiger";
+    private DataSource ds;
 
     Connection conn = null;
     Statement stmt = null;
@@ -17,13 +20,18 @@ public class MemberDAO {
     String name = null, id = null, pw = null, phone1 = null, phone2 = null, phone3 = null,
             gender = null;
 
+
     public MemberDAO() {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            // Class.forName("oracle.jdbc.driver.OracleDriver");
+            Context ctx = new InitialContext();
+            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 
     /*
      * // 멤버 전부 불러오는 함수 public ArrayList<MemberDTO> memberSelect() { ArrayList<MemberDTO> dtos = new
@@ -45,10 +53,15 @@ public class MemberDAO {
      * return dtos; }
      */
 
+
     // 아이디로 멤버 정보 가져오는 함수
     public MemberDTO selectMember(String id) {
+
         MemberDTO dto = null;
         try {
+            // conn = DriverManager.getConnection(url, uid, upw);
+            conn = ds.getConnection();
+
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM member2 WHERE id = ?");
             pstmt.setString(1, id);
             rs = pstmt.executeQuery();
@@ -77,14 +90,15 @@ public class MemberDAO {
                 e.printStackTrace();
             }
         }
-        System.out.println(dto.getGender());
         return dto;
     }
 
     // 해당 아이디인 멤버의 정보를 수정
     public void modifyMember(MemberDTO dto) {
         try {
-            conn = DriverManager.getConnection(url, uid, upw);
+            // conn = DriverManager.getConnection(url, uid, upw);
+            conn = ds.getConnection();
+
             PreparedStatement pstmt = conn.prepareStatement(
                     "UPDATE member2 SET name = ?, pw = ?, phone1 = ?, phone2 = ?, phone3 = ?, gender = ? WHERE id = ?");
             pstmt.setString(1, dto.getName());
@@ -115,7 +129,9 @@ public class MemberDAO {
     public int insertMember(MemberDTO dto) {
         int num = 0;
         try {
-            conn = DriverManager.getConnection(url, uid, upw);
+            // conn = DriverManager.getConnection(url, uid, upw);
+            conn = ds.getConnection();
+
             PreparedStatement pstmt =
                     conn.prepareStatement("INSERT INTO member2 VALUES (?, ?, ?, ?, ?, ?, ?)");
             pstmt.setString(1, dto.getId());
