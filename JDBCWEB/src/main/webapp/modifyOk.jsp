@@ -25,8 +25,8 @@
 	dao.modifyMember(dto);
 	%>
 
-	아이디:
-	<%=id%>
+	이름:
+	<%=name%>
 	<br /> 비밀번호:
 	<%=pw%>
 	<br /> 전화번호 1:
