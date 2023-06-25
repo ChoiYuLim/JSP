@@ -1,12 +1,13 @@
+package com.jsplec;
 
 public class MemberDTO {
-    private String name;
+    private String name = null;
     private String id;
     private String pw;
-    private String phone1;
-    private String phone2;
-    private String phone3;
-    private String gender;
+    private String phone1 = null;
+    private String phone2 = null;
+    private String phone3 = null;
+    private String gender = null;
 
     public MemberDTO(String name, String id, String pw, String phone1, String phone2, String phone3,
             String gender) {
@@ -18,6 +19,12 @@ public class MemberDTO {
         this.phone3 = phone3;
         this.gender = gender;
     }
+
+    public MemberDTO(String id, String pw) {
+        this.id = id;
+        this.pw = pw;
+    }
+
 
     public String getName() {
         return name;
