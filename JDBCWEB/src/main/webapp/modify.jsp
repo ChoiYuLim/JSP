@@ -17,8 +17,7 @@
 	<h1>회원 정보 수정</h1>
 	<%
 	// 세션에 저장된 id 값 가져오기
-	String id = session.getAttribute("id").toString();
-
+	String id = (String) session.getAttribute("id");
 	MemberDAO dao = new MemberDAO();
 	// id로 현재 로그인 된 멤버의 정보(dto 객체로) 가져오기
 	MemberDTO dto = dao.selectMember(id);
@@ -31,7 +30,7 @@
 	String gender = dto.getGender();
 	%>
 
-	<form action="ModifyOk" method="post">
+	<form action="modifyOk.jsp" method="post">
 		비밀번호 : <input type="password" name="pw" value=<%=pw%>> <br />
 		이름: <input type="text" name="name" value=<%=name%>> <br />
 		전화번호 1 : <input type="text" name="phone1" value=<%=phone1%>> <br />
