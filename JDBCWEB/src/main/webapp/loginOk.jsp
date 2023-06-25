@@ -1,20 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="com.jsplec.MemberDAO"%>
 <%@ page import="com.jsplec.MemberDTO"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	<%
 	String id = request.getParameter("id");
 	String pw = request.getParameter("pw");
-	// È¸¿ø ÀÎÁõÀ» ÇÒ ¶§, dao·Î °¡Á®¿Í
-	// 1. select * from member2 where id = id, pw = pwÀ¸·Î ´Ù °¡Á®¿Í¼­, id ¿Í pw¸¦ ºñ±³ÇÏ±â -> Àç»ç¿ë¼ºÀÌ ¾øÀ½
-	// 2. select * from member2 where id = id·Î °¡Á®¿Í¼­ loginOk¿¡¼­ pw¸¸ ºñ±³ÇÏ±â
+	// íšŒì› ì¸ì¦ì„ í•  ë•Œ, daoë¡œ ê°€ì ¸ì™€
+	// 1. select * from member2 where id = id, pw = pwìœ¼ë¡œ ë‹¤ ê°€ì ¸ì™€ì„œ, id ì™€ pwë¥¼ ë¹„êµí•˜ê¸° -> ì¬ì‚¬ìš©ì„±ì´ ì—†ìŒ
+	// 2. select * from member2 where id = idë¡œ ê°€ì ¸ì™€ì„œ loginOkì—ì„œ pwë§Œ ë¹„êµí•˜ê¸°
 
 	MemberDAO dao = new MemberDAO();
 	MemberDTO dto = new MemberDTO(id, pw);
@@ -23,10 +23,8 @@
 	if (dto.getPw().equals(pw)) {
 	    System.out.println("login success");
 
-	    // ·Î±×ÀÎÀÌ ¼º°øÇÏ¸é ¼¼¼Ç »ı¼º
-	    HttpSession ss = request.getSession(true);
-	    ss.setAttribute("id", id);
-	    ss.setAttribute("pw", pw);
+	    // ë¡œê·¸ì¸ì´ ì„±ê³µí•˜ë©´ ì„¸ì…˜ì— id, name ìƒì„±
+	    session.setAttribute("id", id);
 
 	    response.sendRedirect("main.jsp");
 	} else {
