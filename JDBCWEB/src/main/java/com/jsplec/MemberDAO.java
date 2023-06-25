@@ -2,9 +2,9 @@ package com.jsplec;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 public class MemberDAO {
     private String url = "jdbc:oracle:thin:@192.168.119.119:1521/dink21.dbsvr";
@@ -49,9 +49,9 @@ public class MemberDAO {
     public MemberDTO selectMember(String id) {
         MemberDTO dto = null;
         try {
-            conn = DriverManager.getConnection(url, uid, upw);
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM member2 where id = '" + id + "'");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM member2 WHERE id = ?");
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
 
             rs.next();
             name = rs.getString("name");
@@ -85,11 +85,17 @@ public class MemberDAO {
     public void modifyMember(MemberDTO dto) {
         try {
             conn = DriverManager.getConnection(url, uid, upw);
-            stmt = conn.createStatement();
-            stmt.executeUpdate("update member2 set name = '" + dto.getName() + "', pw = '"
-                    + dto.getPw() + "', phone1 = '" + dto.getPhone1() + "', phone2 = '"
-                    + dto.getPhone2() + "', phone3 = '" + dto.getPhone3() + "', gender = '"
-                    + dto.getGender() + "' where id = '" + dto.getId() + "'");
+            PreparedStatement pstmt = conn.prepareStatement(
+                    "UPDATE member2 SET name = ?, pw = ?, phone1 = ?, phone2 = ?, phone3 = ?, gender = ? WHERE id = ?");
+            pstmt.setString(1, dto.getName());
+            pstmt.setString(2, dto.getPw());
+            pstmt.setString(3, dto.getPhone1());
+            pstmt.setString(4, dto.getPhone2());
+            pstmt.setString(5, dto.getPhone3());
+            pstmt.setString(6, dto.getGender());
+            pstmt.setString(7, dto.getId());
+
+            pstmt.executeUpdate();
 
         } catch (Exception e) {
 
@@ -110,10 +116,17 @@ public class MemberDAO {
         int num = 0;
         try {
             conn = DriverManager.getConnection(url, uid, upw);
-            stmt = conn.createStatement();
-            num = stmt.executeUpdate("insert into member2 values('" + dto.getId() + "','"
-                    + dto.getName() + "','" + dto.getPw() + "','" + dto.getPhone1() + "','"
-                    + dto.getPhone2() + "','" + dto.getPhone3() + "','" + dto.getGender() + "')");
+            PreparedStatement pstmt =
+                    conn.prepareStatement("INSERT INTO member2 VALUES (?, ?, ?, ?, ?, ?, ?)");
+            pstmt.setString(1, dto.getId());
+            pstmt.setString(2, dto.getName());
+            pstmt.setString(3, dto.getPw());
+            pstmt.setString(4, dto.getPhone1());
+            pstmt.setString(5, dto.getPhone2());
+            pstmt.setString(6, dto.getPhone3());
+            pstmt.setString(7, dto.getGender());
+
+            num = pstmt.executeUpdate();
 
         } catch (Exception e) {
 
