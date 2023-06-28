@@ -144,7 +144,7 @@ public class BoardDAO {
         return dto;
     }
 
-    // 해당 아이디인 멤버의 정보를 수정
+    // 해당 ID값의 글을 수정
     public int modifyBoard(int id, BoardDTO dto) {
         int num = 0;
         try {
@@ -158,6 +158,33 @@ public class BoardDAO {
             pstmt.setInt(4, id);
 
             num = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null)
+                    pstmt.close();
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return num;
+    }
+
+    // 새로 작성하는 글의 group값
+    public int getGroupNew() {
+        int num = 1;
+        try {
+            conn = ds.getConnection();
+
+            pstmt = conn.prepareStatement("SELECT SEQ_MVC_BOARD.CURRVAL FROM DUAL");
+
+            rs = pstmt.executeQuery();
+            rs.next();
+            num = rs.getInt(1) + 1;
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -9,7 +9,7 @@ public class BoardWriteCommand implements BoardCommand<Integer> {
     public Integer execute(HttpServletRequest request, HttpServletResponse response) {
         BoardDAO dao = new BoardDAO();
         BoardDTO dto = new BoardDTO(request.getParameter("name"), request.getParameter("title"),
-                request.getParameter("content"), 2, 1); // 수정 필요
+                request.getParameter("content"), dao.getGroupNew(), 1);
         return dao.insertBoard(dto);
     }
 }
