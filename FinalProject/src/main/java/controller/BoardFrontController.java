@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.BoardCommand;
 import model.BoardDTO;
+import model.BoardDeleteCommand;
 import model.BoardDetailReadCommand;
 import model.BoardModifyCommand;
 import model.BoardReadCommand;
@@ -100,6 +101,11 @@ public class BoardFrontController extends HttpServlet {
 
         } else if (command.equals("/view/modify_view.do")) {
             cmd = new BoardModifyCommand();
+            cmd.execute(request, response);
+            response.sendRedirect("list_view.do");
+
+        } else if (command.equals("/view/delete_view.do")) {
+            cmd = new BoardDeleteCommand();
             cmd.execute(request, response);
             response.sendRedirect("list_view.do");
 

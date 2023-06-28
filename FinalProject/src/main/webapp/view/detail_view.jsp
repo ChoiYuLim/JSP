@@ -99,7 +99,7 @@ a {
 			</table>
 			<div class="btn-container">
 				<input type="submit" value="수정"> <a href="list_view.do">목록보기</a><a
-					href="delete.do?id=${board.id}">삭제</a> <a
+					href="delete_view.do?id=${board.id}">삭제</a> <a
 					href="write_reply_view.do">답변</a>
 			</div>
 			<a href="write_view.jsp">글 작성</a>

@@ -21,7 +21,6 @@ public class BoardDAO {
     Timestamp dateCreated = null;
     int id = 0, hit = 0, groupId = 0, levelNum = 0, indent = 0;
 
-
     public BoardDAO() {
         try {
             Context ctx = new InitialContext();
@@ -191,6 +190,31 @@ public class BoardDAO {
             rs = pstmt.executeQuery();
             rs.next();
             num = rs.getInt(1) + 1;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null)
+                    pstmt.close();
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return num;
+    }
+
+    // 해당 ID값의 글 삭제
+    public int deleteBoard(int id) {
+        int num = 0;
+        try {
+            conn = ds.getConnection();
+
+            pstmt = conn.prepareStatement("DELETE MVC_BOARD WHERE ID = ?");
+            pstmt.setInt(1, id);
+            num = pstmt.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
