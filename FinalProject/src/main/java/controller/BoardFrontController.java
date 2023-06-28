@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.BoardCommand;
 import model.BoardDTO;
+import model.BoardDetailReadCommand;
 import model.BoardReadCommand;
 import model.BoardWriteCommand;
 import java.io.IOException;
@@ -81,6 +82,20 @@ public class BoardFrontController extends HttpServlet {
             cmd = new BoardWriteCommand();
             cmd.execute(request, response);
             response.sendRedirect("list_view.do");
+
+        } else if (command.equals("/view/detail_view.do")) {
+
+            cmd = new BoardDetailReadCommand();
+            BoardDTO board = (BoardDTO) cmd.execute(request, response);
+
+            // JSP 파일로 전달할 데이터 설정
+            request.setAttribute("board", board);
+
+            viewPage = "detail_view.jsp";
+
+            // 포워딩
+            RequestDispatcher reqDpt = request.getRequestDispatcher(viewPage);
+            reqDpt.forward(request, response);
 
         } else {
             System.out.println("연결 실패");

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Member List</title>
+<title>BOARD List</title>
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -52,7 +52,7 @@ tr:nth-child(even) {
 				<tr>
 					<td>${board.id}</td>
 					<td>${board.name}</td>
-					<td>${board.title}</td>
+					<td><a href="detail_view.do?id=${board.id}">${board.title}</a></td>
 					<td>${board.content}</td>
 					<td>${board.dateCreated}</td>
 					<td>${board.hit}</td>
@@ -63,5 +63,7 @@ tr:nth-child(even) {
 			</c:forEach>
 		</tbody>
 	</table>
+
+	<a href="write_view.jsp">글 작성</a>
 </body>
 </html>

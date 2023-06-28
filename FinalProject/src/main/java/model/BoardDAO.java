@@ -104,4 +104,44 @@ public class BoardDAO {
         return num;
     }
 
+    // 아이디로 멤버 정보 가져오는 함수
+    public BoardDTO getInfo(int id) {
+
+        BoardDTO dto = null;
+        try {
+            conn = ds.getConnection();
+
+            pstmt = conn.prepareStatement("SELECT * FROM MVC_BOARD WHERE id = ?");
+            pstmt.setInt(1, id);
+            rs = pstmt.executeQuery();
+
+            rs.next();
+            name = rs.getString("NAME");
+            title = rs.getString("TITLE");
+            content = rs.getString("CONTENT");
+            dateCreated = rs.getTimestamp("DATE_CREATED");
+            hit = rs.getInt("HIT");
+            groupId = rs.getInt("GROUP_ID");
+            levelNum = rs.getInt("LEVEL_NUM");
+            indent = rs.getInt("INDENT");
+
+            dto = new BoardDTO(id, name, title, content, dateCreated, hit, groupId, levelNum,
+                    indent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+                if (pstmt != null)
+                    pstmt.close();
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return dto;
+    }
+
 }
