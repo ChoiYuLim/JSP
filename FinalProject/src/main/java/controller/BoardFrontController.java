@@ -2,6 +2,7 @@ package controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 /**
  * Servlet implementation class BoardFrontController
  */
+
+@WebServlet("*.do")
 public class BoardFrontController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -52,10 +55,13 @@ public class BoardFrontController extends HttpServlet {
         BoardCommand cmd = null;
 
         String uri = request.getRequestURI();
+        System.out.println(uri);
         String conPath = request.getContextPath();
+        System.out.println(conPath);
         String command = uri.substring(conPath.length());
+        System.out.println(command);
 
-        if (command.equals("/list_view.do")) {
+        if (command.equals("/view/list_view.do")) {
             // BoardReadCommand 인스턴스 생성
             cmd = new BoardReadCommand();
 
@@ -67,6 +73,7 @@ public class BoardFrontController extends HttpServlet {
             viewPage = "list_view.jsp";
 
         } else {
+            System.out.println("연결 실패");
         }
 
         // 포워딩
