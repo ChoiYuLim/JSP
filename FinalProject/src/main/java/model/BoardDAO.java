@@ -40,15 +40,15 @@ public class BoardDAO {
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                id = rs.getInt("id");
-                name = rs.getString("name");
-                title = rs.getString("title");
-                content = rs.getString("content");
-                dateCreated = rs.getTimestamp("dateCreated");
-                hit = rs.getInt("hit");
-                groupId = rs.getInt("groupId");
-                levelNum = rs.getInt("levelNum");
-                indent = rs.getInt("indent");
+                id = rs.getInt("ID");
+                name = rs.getString("NAME");
+                title = rs.getString("TITLE");
+                content = rs.getString("CONTENT");
+                dateCreated = rs.getTimestamp("DATE_CREATED");
+                hit = rs.getInt("HIT");
+                groupId = rs.getInt("GROUP_ID");
+                levelNum = rs.getInt("LEVEL_NUM");
+                indent = rs.getInt("INDENT");
 
                 BoardDTO dto = new BoardDTO(id, name, title, content, dateCreated, hit, groupId,
                         levelNum, indent);
