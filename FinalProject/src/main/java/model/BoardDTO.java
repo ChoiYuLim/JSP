@@ -13,6 +13,20 @@ public class BoardDTO {
     private int levelNum;
     private int indent;
 
+    public BoardDTO(int id, String name, String title, String content, Timestamp dateCreated,
+            int hit, int groupId, int levelNum, int indent) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.title = title;
+        this.content = content;
+        this.dateCreated = dateCreated;
+        this.hit = hit;
+        this.groupId = groupId;
+        this.levelNum = levelNum;
+        this.indent = indent;
+    }
+
     public BoardDTO(String name, String title, String content, int groupId, int levelNum) {
         this.name = name;
         this.title = title;
