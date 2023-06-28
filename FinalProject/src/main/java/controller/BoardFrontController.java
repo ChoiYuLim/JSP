@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.BoardCommand;
 import model.BoardDTO;
 import model.BoardReadCommand;
+import model.BoardWriteCommand;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -66,19 +67,26 @@ public class BoardFrontController extends HttpServlet {
             cmd = new BoardReadCommand();
 
             // BoardReadCommand의 execute 메서드 호출하여 board 목록 가져오기
-            ArrayList<BoardDTO> boardList = cmd.execute(request, response);
+            ArrayList<BoardDTO> boardList = (ArrayList<BoardDTO>) cmd.execute(request, response);
 
             // 가져온 board 목록을 request에 저장
             request.setAttribute("boardList", boardList);
             viewPage = "list_view.jsp";
 
+            // 포워딩
+            RequestDispatcher reqDpt = request.getRequestDispatcher(viewPage);
+            reqDpt.forward(request, response);
+
+        } else if (command.equals("/view/write_view.do")) {
+            cmd = new BoardWriteCommand();
+            cmd.execute(request, response);
+            response.sendRedirect("list_view.do");
+
         } else {
             System.out.println("연결 실패");
         }
 
-        // 포워딩
-        RequestDispatcher reqDpt = request.getRequestDispatcher(viewPage);
-        reqDpt.forward(request, response);
+
     }
 
 }

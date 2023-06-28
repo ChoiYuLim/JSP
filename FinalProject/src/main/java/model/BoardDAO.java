@@ -72,4 +72,36 @@ public class BoardDAO {
         return dtos;
     }
 
+    // dto를 MVC_BOARD 테이블에 삽입
+    public int insertBoard(BoardDTO dto) {
+        int num = 0;
+        try {
+            conn = ds.getConnection();
+
+            pstmt = conn.prepareStatement(
+                    "INSERT INTO MVC_BOARD(NAME, TITLE, CONTENT, GROUP_ID, LEVEL_NUM) VALUES (?, ?, ?, ?, ?)");
+            pstmt.setString(1, dto.getName());
+            pstmt.setString(2, dto.getTitle());
+            pstmt.setString(3, dto.getContent());
+            pstmt.setInt(4, dto.getGroupId());
+            pstmt.setInt(5, dto.getLevelNum());
+
+            num = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null)
+                    pstmt.close();
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return num;
+    }
+
 }
