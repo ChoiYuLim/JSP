@@ -105,7 +105,7 @@ public class BoardDAO {
     }
 
     // 아이디로 멤버 정보 가져오는 함수
-    public BoardDTO getInfo(int id) {
+    public BoardDTO getInfoUpdateHit(int id) {
 
         BoardDTO dto = null;
         try {
@@ -120,13 +120,19 @@ public class BoardDAO {
             title = rs.getString("TITLE");
             content = rs.getString("CONTENT");
             dateCreated = rs.getTimestamp("DATE_CREATED");
-            hit = rs.getInt("HIT");
+            hit = rs.getInt("HIT") + 1;
             groupId = rs.getInt("GROUP_ID");
             levelNum = rs.getInt("LEVEL_NUM");
             indent = rs.getInt("INDENT");
 
             dto = new BoardDTO(id, name, title, content, dateCreated, hit, groupId, levelNum,
                     indent);
+
+            pstmt = conn.prepareStatement("UPDATE MVC_BOARD SET HIT = ? WHERE id = ?");
+            pstmt.setInt(1, dto.getHit());
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

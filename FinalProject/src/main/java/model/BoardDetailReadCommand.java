@@ -8,6 +8,6 @@ public class BoardDetailReadCommand implements BoardCommand<BoardDTO> {
     @Override
     public BoardDTO execute(HttpServletRequest request, HttpServletResponse response) {
         BoardDAO dao = new BoardDAO();
-        return dao.getInfo(Integer.parseInt(request.getParameter("id")));
+        return dao.getInfoUpdateHit(Integer.parseInt(request.getParameter("id")));
     }
 }
