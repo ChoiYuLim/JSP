@@ -1,0 +1,17 @@
+package model;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+public class BoardModifyCommand implements BoardCommand<Integer> {
+
+    @Override
+    public Integer execute(HttpServletRequest request, HttpServletResponse response) {
+        BoardDAO dao = new BoardDAO();
+        BoardDTO dto = new BoardDTO(request.getParameter("name"), request.getParameter("title"),
+                request.getParameter("content"), Integer.parseInt(request.getParameter("groupId")),
+                Integer.parseInt(request.getParameter("levelNum")));
+        return dao.modifyBoard(Integer.parseInt(request.getParameter("id")), dto);
+    }
+
+}

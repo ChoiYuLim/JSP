@@ -144,4 +144,34 @@ public class BoardDAO {
         return dto;
     }
 
+    // 해당 아이디인 멤버의 정보를 수정
+    public int modifyBoard(int id, BoardDTO dto) {
+        int num = 0;
+        try {
+            conn = ds.getConnection();
+
+            pstmt = conn.prepareStatement(
+                    "UPDATE MVC_BOARD SET name = ?, title = ?, content = ? WHERE id = ?");
+            pstmt.setString(1, dto.getName());
+            pstmt.setString(2, dto.getTitle());
+            pstmt.setString(3, dto.getContent());
+            pstmt.setInt(4, id);
+
+            num = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null)
+                    pstmt.close();
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return num;
+    }
+
 }

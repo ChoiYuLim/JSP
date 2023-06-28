@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.BoardCommand;
 import model.BoardDTO;
 import model.BoardDetailReadCommand;
+import model.BoardModifyCommand;
 import model.BoardReadCommand;
 import model.BoardWriteCommand;
 import java.io.IOException;
@@ -96,6 +97,11 @@ public class BoardFrontController extends HttpServlet {
             // 포워딩
             RequestDispatcher reqDpt = request.getRequestDispatcher(viewPage);
             reqDpt.forward(request, response);
+
+        } else if (command.equals("/view/modify_view.do")) {
+            cmd = new BoardModifyCommand();
+            cmd.execute(request, response);
+            response.sendRedirect("list_view.do");
 
         } else {
             System.out.println("연결 실패");
