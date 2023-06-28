@@ -156,12 +156,14 @@ public class BoardDAO {
             conn = ds.getConnection();
 
             pstmt = conn.prepareStatement(
-                    "UPDATE MVC_BOARD SET name = ?, title = ?, content = ? WHERE id = ?");
+                    "UPDATE MVC_BOARD SET name = ?, title = ?, content = ?, DATE_CREATED = ? WHERE id = ?");
             pstmt.setString(1, dto.getName());
             pstmt.setString(2, dto.getTitle());
             pstmt.setString(3, dto.getContent());
-            pstmt.setInt(4, id);
+            pstmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+            pstmt.setInt(5, id);
 
+            System.out.println(id);
             num = pstmt.executeUpdate();
 
         } catch (Exception e) {
@@ -218,6 +220,7 @@ public class BoardDAO {
 
         } catch (Exception e) {
             e.printStackTrace();
+
         } finally {
             try {
                 if (pstmt != null)
