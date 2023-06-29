@@ -19,7 +19,7 @@ public class BoardDAO {
 
     String name = null, title = null, content = null;
     Timestamp dateCreated = null;
-    int id = 0, hit = 0, groupId = 0, levelNum = 0, indent = 0;
+    int id = 0, hit = 0, groupId = 0, levelNum = 0, indent = 0, pid = 0;
 
     public BoardDAO() {
         try {
@@ -35,7 +35,10 @@ public class BoardDAO {
         ArrayList<BoardDTO> dtos = new ArrayList<BoardDTO>();
         try {
             conn = ds.getConnection();
-            pstmt = conn.prepareStatement("SELECT * FROM MVC_BOARD");
+            pstmt = conn.prepareStatement(
+                    "SELECT * FROM (SELECT id, name, title, content, date_created, hit, group_id, level_num, indent, pid, SYS_CONNECT_BY_PATH(id, '/') AS path FROM MVC_BOARD START WITH pid = 0 CONNECT BY PRIOR id = pid ORDER SIBLINGS BY level_num ASC, date_created DESC) t ORDER BY path");
+
+
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -48,9 +51,10 @@ public class BoardDAO {
                 groupId = rs.getInt("GROUP_ID");
                 levelNum = rs.getInt("LEVEL_NUM");
                 indent = rs.getInt("INDENT");
+                pid = rs.getInt("PID");
 
                 BoardDTO dto = new BoardDTO(id, name, title, content, dateCreated, hit, groupId,
-                        levelNum, indent);
+                        levelNum, indent, pid);
                 dtos.add(dto);
             }
         } catch (Exception e) {
@@ -78,12 +82,13 @@ public class BoardDAO {
             conn = ds.getConnection();
 
             pstmt = conn.prepareStatement(
-                    "INSERT INTO MVC_BOARD(NAME, TITLE, CONTENT, GROUP_ID, LEVEL_NUM) VALUES (?, ?, ?, ?, ?)");
+                    "INSERT INTO MVC_BOARD(NAME, TITLE, CONTENT, DATE_CREATED, GROUP_ID, LEVEL_NUM) VALUES (?, ?, ?, ?, ?, ?)");
             pstmt.setString(1, dto.getName());
             pstmt.setString(2, dto.getTitle());
             pstmt.setString(3, dto.getContent());
-            pstmt.setInt(4, dto.getGroupId());
-            pstmt.setInt(5, 0);
+            pstmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+            pstmt.setInt(5, dto.getGroupId());
+            pstmt.setInt(6, 0);
 
             num = pstmt.executeUpdate();
 
@@ -104,19 +109,21 @@ public class BoardDAO {
     }
 
     // dto를 MVC_BOARD 테이블에 삽입
-    public int writeReplyBoard(BoardDTO dto) {
+    public int writeReplyBoard(int pId, BoardDTO dto) {
         int num = 0;
         try {
             conn = ds.getConnection();
 
             pstmt = conn.prepareStatement(
-                    "INSERT INTO MVC_BOARD(NAME, TITLE, CONTENT, GROUP_ID, LEVEL_NUM, INDENT) VALUES (?, ?, ?, ?, ?, ?)");
+                    "INSERT INTO MVC_BOARD(NAME, TITLE, CONTENT, DATE_CREATED, GROUP_ID, LEVEL_NUM, INDENT, PID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             pstmt.setString(1, dto.getName());
             pstmt.setString(2, dto.getTitle());
             pstmt.setString(3, dto.getContent());
-            pstmt.setInt(4, dto.getGroupId());
-            pstmt.setInt(5, dto.getLevelNum() + 1);
-            pstmt.setInt(6, dto.getIndent() + 1);
+            pstmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+            pstmt.setInt(5, dto.getGroupId());
+            pstmt.setInt(6, dto.getLevelNum() + 1);
+            pstmt.setInt(7, dto.getIndent() + 1);
+            pstmt.setInt(8, pId);
 
             num = pstmt.executeUpdate();
 
@@ -158,9 +165,10 @@ public class BoardDAO {
             groupId = rs.getInt("GROUP_ID");
             levelNum = rs.getInt("LEVEL_NUM");
             indent = rs.getInt("INDENT");
+            pid = rs.getInt("PID");
 
             dto = new BoardDTO(id, name, title, content, dateCreated, hit, groupId, levelNum,
-                    indent);
+                    indent, pid);
 
             pstmt = conn.prepareStatement("UPDATE MVC_BOARD SET HIT = ? WHERE id = ?");
             pstmt.setInt(1, dto.getHit());
@@ -227,6 +235,33 @@ public class BoardDAO {
             rs = pstmt.executeQuery();
             rs.next();
             num = rs.getInt(1) + 1;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null)
+                    pstmt.close();
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return num;
+    }
+
+    // 현재 level 최대값 받아오기
+    public int getLevel(int id) {
+        int num = 1;
+        try {
+            conn = ds.getConnection();
+
+            pstmt = conn.prepareStatement("SELECT MAX(LEVEL_NUM) FROM MVC_BOARD WHERE PID = ?");
+            pstmt.setInt(1, id);
+            rs = pstmt.executeQuery();
+            rs.next();
+            num = rs.getInt(1);
 
         } catch (Exception e) {
             e.printStackTrace();

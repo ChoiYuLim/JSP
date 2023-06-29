@@ -41,7 +41,8 @@ th {
 			type="hidden" name="levelNum"
 			value="<%=request.getParameter("levelNum")%>"> <input
 			type="hidden" name="indent"
-			value="<%=request.getParameter("indent")%>">
+			value="<%=request.getParameter("indent")%>"><input
+			type="hidden" name="pid" value="<%=request.getParameter("pid")%>">
 		<table>
 			<tr>
 				<th>번호</th>

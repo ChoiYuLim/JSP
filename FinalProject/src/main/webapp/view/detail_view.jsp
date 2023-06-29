@@ -73,7 +73,8 @@ a {
 			<input type="hidden" name="id" value="${board.id}"> <input
 				type="hidden" name="groupId" value="${board.groupId}"> <input
 				type="hidden" name="levelNum" value="${board.levelNum}"><input
-				type="hidden" name="indent" value="${board.indent}">
+				type="hidden" name="indent" value="${board.indent}"><input
+				type="hidden" name="pid" value="${board.id}">
 			<table>
 				<tr>
 					<th>번호</th>

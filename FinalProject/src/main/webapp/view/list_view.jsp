@@ -45,6 +45,7 @@ tr:nth-child(even) {
 				<th>GroupId</th>
 				<th>Level</th>
 				<th>Indent</th>
+				<th>PID</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -64,6 +65,7 @@ tr:nth-child(even) {
 					<td>${board.groupId}</td>
 					<td>${board.levelNum}</td>
 					<td>${board.indent}</td>
+					<td>${board.pid}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

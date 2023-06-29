@@ -12,9 +12,10 @@ public class BoardDTO {
     private int groupId;
     private int levelNum;
     private int indent = 0;
+    private int pid = 0;
 
     public BoardDTO(int id, String name, String title, String content, Timestamp dateCreated,
-            int hit, int groupId, int levelNum, int indent) {
+            int hit, int groupId, int levelNum, int indent, int pid) {
         super();
         this.id = id;
         this.name = name;
@@ -25,6 +26,18 @@ public class BoardDTO {
         this.groupId = groupId;
         this.levelNum = levelNum;
         this.indent = indent;
+        this.pid = pid;
+    }
+
+    public BoardDTO(String name, String title, String content, int groupId, int levelNum,
+            int indent, int pid) {
+        this.name = name;
+        this.title = title;
+        this.content = content;
+        this.groupId = groupId;
+        this.levelNum = levelNum;
+        this.indent = indent;
+        this.pid = pid;
     }
 
     public BoardDTO(String name, String title, String content, int groupId, int levelNum,
@@ -115,5 +128,13 @@ public class BoardDTO {
 
     public void setIndent(int indent) {
         this.indent = indent;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int sorting) {
+        this.pid = sorting;
     }
 }
