@@ -39,7 +39,9 @@ th {
 		<input type="hidden" name="groupId"
 			value="<%=request.getParameter("groupId")%>"> <input
 			type="hidden" name="levelNum"
-			value="<%=request.getParameter("levelNum")%>">
+			value="<%=request.getParameter("levelNum")%>"> <input
+			type="hidden" name="indent"
+			value="<%=request.getParameter("indent")%>">
 		<table>
 			<tr>
 				<th>번호</th>

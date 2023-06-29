@@ -52,7 +52,12 @@ tr:nth-child(even) {
 				<tr>
 					<td>${board.id}</td>
 					<td>${board.name}</td>
-					<td><a href="detail_view.do?id=${board.id}">${board.title}</a></td>
+					<td><a href="detail_view.do?id=${board.id}"> <c:set
+								var="indent" value="" /> <c:forEach begin="1"
+								end="${board.indent}">
+								<c:set var="indent" value="${indent}-" />
+							</c:forEach> ${indent}${board.title}
+					</a></td>
 					<td>${board.content}</td>
 					<td>${board.dateCreated}</td>
 					<td>${board.hit}</td>

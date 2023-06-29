@@ -11,7 +11,7 @@ public class BoardDTO {
     private int hit = 0;
     private int groupId;
     private int levelNum;
-    private int indent;
+    private int indent = 0;
 
     public BoardDTO(int id, String name, String title, String content, Timestamp dateCreated,
             int hit, int groupId, int levelNum, int indent) {
@@ -22,6 +22,16 @@ public class BoardDTO {
         this.content = content;
         this.dateCreated = dateCreated;
         this.hit = hit;
+        this.groupId = groupId;
+        this.levelNum = levelNum;
+        this.indent = indent;
+    }
+
+    public BoardDTO(String name, String title, String content, int groupId, int levelNum,
+            int indent) {
+        this.name = name;
+        this.title = title;
+        this.content = content;
         this.groupId = groupId;
         this.levelNum = levelNum;
         this.indent = indent;
