@@ -12,6 +12,7 @@ import model.BoardDeleteCommand;
 import model.BoardDetailReadCommand;
 import model.BoardModifyCommand;
 import model.BoardReadCommand;
+import model.BoardReplyCommand;
 import model.BoardWriteCommand;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -106,6 +107,11 @@ public class BoardFrontController extends HttpServlet {
 
         } else if (command.equals("/view/delete_view.do")) {
             cmd = new BoardDeleteCommand();
+            cmd.execute(request, response);
+            response.sendRedirect("list_view.do");
+
+        } else if (command.equals("/view/write_reply_view.do")) {
+            cmd = new BoardReplyCommand();
             cmd.execute(request, response);
             response.sendRedirect("list_view.do");
 

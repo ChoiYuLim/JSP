@@ -72,7 +72,8 @@ a {
 		<form action="modify_view.do" method="post">
 			<input type="hidden" name="id" value="${board.id}"> <input
 				type="hidden" name="groupId" value="${board.groupId}"> <input
-				type="hidden" name="levelNum" value="${board.levelNum}">
+				type="hidden" name="levelNum" value="${board.levelNum}"><input
+				type="hidden" name="indent" value="${board.indent}">
 			<table>
 				<tr>
 					<th>번호</th>
@@ -99,8 +100,9 @@ a {
 			</table>
 			<div class="btn-container">
 				<input type="submit" value="수정"> <a href="list_view.do">목록보기</a><a
-					href="delete_view.do?id=${board.id}">삭제</a> <a
-					href="write_reply_view.do">답변</a>
+					href="delete_view.do?id=${board.id}">삭제</a>
+				<button type="submit" formaction="write_reply_view.jsp"
+					formmethod="post">답변</button>
 			</div>
 			<a href="write_view.jsp">글 작성</a>
 		</form>

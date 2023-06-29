@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글 작성 페이지</title>
+<title>답글 작성 페이지</title>
 <style>
 table {
 	border-collapse: collapse;
@@ -34,8 +34,12 @@ th {
 </style>
 </head>
 <body>
-	<h1>Write Post</h1>
-	<form action="write_view.do" method="post">
+	<h1>Write Reply</h1>
+	<form action="write_reply_view.do" method="post">
+		<input type="hidden" name="groupId"
+			value="<%=request.getParameter("groupId")%>"> <input
+			type="hidden" name="levelNum"
+			value="<%=request.getParameter("levelNum")%>">
 		<table>
 			<tr>
 				<th>번호</th>

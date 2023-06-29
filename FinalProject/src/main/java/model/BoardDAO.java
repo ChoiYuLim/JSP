@@ -83,7 +83,7 @@ public class BoardDAO {
             pstmt.setString(2, dto.getTitle());
             pstmt.setString(3, dto.getContent());
             pstmt.setInt(4, dto.getGroupId());
-            pstmt.setInt(5, dto.getLevelNum());
+            pstmt.setInt(5, 0);
 
             num = pstmt.executeUpdate();
 
@@ -102,6 +102,41 @@ public class BoardDAO {
 
         return num;
     }
+
+    // dto를 MVC_BOARD 테이블에 삽입
+    public int writeReplyBoard(BoardDTO dto) {
+        int num = 0;
+        try {
+            conn = ds.getConnection();
+
+            pstmt = conn.prepareStatement(
+                    "INSERT INTO MVC_BOARD(NAME, TITLE, CONTENT, GROUP_ID, LEVEL_NUM, INDENT) VALUES (?, ?, ?, ?, ?, ?)");
+            pstmt.setString(1, dto.getName());
+            pstmt.setString(2, dto.getTitle());
+            pstmt.setString(3, dto.getContent());
+            pstmt.setInt(4, dto.getGroupId());
+            pstmt.setInt(5, dto.getLevelNum() + 1);
+            pstmt.setInt(6, dto.getIndent() + 1);
+
+            num = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null)
+                    pstmt.close();
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return num;
+    }
+
+
 
     // 아이디로 멤버 정보 가져오는 함수
     public BoardDTO getInfoUpdateHit(int id) {
@@ -187,7 +222,7 @@ public class BoardDAO {
         try {
             conn = ds.getConnection();
 
-            pstmt = conn.prepareStatement("SELECT SEQ_MVC_BOARD.CURRVAL FROM DUAL");
+            pstmt = conn.prepareStatement("SELECT MAX(ID) FROM MVC_BOARD");
 
             rs = pstmt.executeQuery();
             rs.next();
